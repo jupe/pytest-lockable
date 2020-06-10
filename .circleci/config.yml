@@ -12,7 +12,11 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - test-36:
+      - test-38:
+          filters:
+            tags:
+              only: /.*/
+      - test-39:
           filters:
             tags:
               only: /.*/
