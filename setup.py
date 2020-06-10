@@ -51,7 +51,7 @@ setup(
         'pydash'
     ],
     extras_require={  # Optional
-        'dev': ['nose', 'pylint', 'coverage']
+        'dev': ['nose', 'coveralls', 'pylint', 'coverage']
     },
 
     project_urls={  # Optional
