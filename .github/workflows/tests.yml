@@ -20,10 +20,15 @@ jobs:
     - uses: actions/checkout@v2
     - name: Python Linting
       uses: WhyNotHugo/python-linting@v1.0.0
-    - name: Unit Testing With Python
-      uses: PrajjawalBanati/Python-actions@0.0.1
+    - name: Python Unit Test
+      uses: onichandame/python-test-action@0.0.0
+      with:
+        # directory of test scripts
+        test_dir: tests
+
     - name: Python Pytest Github Action
       uses: fylein/python-pytest-github-action@v2
+      id: "${{ always() }}"
   
     - name: Coveralls Python
       uses: AndreMiras/coveralls-python-action@v20200413
