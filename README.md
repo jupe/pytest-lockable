@@ -33,6 +33,12 @@ Resources are described in json file as array of objects. Each object has some m
 pip install pytest-lockable
 ```
 
+`conftest.py`:
+
+```
+pytest_plugins = ("lockable.plugin",)
+```
+
 ## Usage
 
 Custom options:
