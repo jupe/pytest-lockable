@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1234",
+    "online": false,
+    "hostname": "localhost"
+  },
+  {
+    "id": "1235",
+    "online": true,
+    "hostname": "localhost"
+  }
+]
