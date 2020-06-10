@@ -21,8 +21,9 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='pytest-lockable',
-    version='0.1.0',
-    description='Release tools',
+    use_scm_version=True,
+    setup_requires=["setuptools_scm"],
+    description='lockable resource plugin for pytest',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jupe/pytest-lockable',
@@ -30,20 +31,28 @@ setup(
     author_email='jussiva@gmail.com',
 
     # Classifiers help users find your project by categorizing it.
-    #
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
         'Development Status :: 3 - Alpha',
+        "Framework :: Pytest",
+        "Intended Audience :: Developers",
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
-        'Programming Language :: Python :: 3.6',
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS :: MacOS X",
+        "Topic :: Software Development :: Quality Assurance",
+        "Topic :: Software Development :: Testing",
+        "Topic :: Utilities",
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.7',
+        "Programming Language :: Python :: 3 :: Only",
     ],
     packages=find_packages(exclude=['tests']),  # Required
-
+    keywords="py.test pytest lockable resource",
     # Specify which Python versions you support.
-    python_requires='>=3.6, <4',
+    python_requires='>=3.7, <4',
     install_requires=[
         'pytest',
         'func_timeout',
@@ -55,7 +64,7 @@ setup(
     },
 
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/jouzen/pyring/reltool',
-        'Source': 'https://github.com/jouzem/reltool/',
+        'Bug Reports': 'https://github.com/jupe/pytest-lockable',
+        'Source': 'https://github.com/jupe/pytest-lockable/',
     }
 )
