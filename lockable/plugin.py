@@ -18,7 +18,7 @@ def pytest_addoption(parser):
     called once at the beginning of a test run
     """
     parser.addoption("--allocation_hostname", default=socket.gethostname(), help="Allocation host")
-    parser.addoption("--allocation_requirements", help="Resource requirements to be allocate")
+    parser.addoption("--allocation_requirements", default=None, help="Resource requirements to be allocate")
     parser.addoption("--allocation_timeout", default=10, help="Allocation timeout")
     parser.addoption("--allocation_resource_list_file", default='resources.json', help="Resource to be allocate")
     parser.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="allocation lock folder")

@@ -5,6 +5,7 @@ import unittest
 import os
 import socket
 import time
+from nose.tools import nottest
 import multiprocessing as mp
 from tempfile import mktemp
 from contextlib import contextmanager
@@ -23,6 +24,7 @@ def tmp_file(data):
     os.unlink(filename)
 
 
+@nottest
 def run_test(index, req, devices, duration, timeout):
     print(f'waiting for test {index} resources')
     with lock(requirements=req, resource_list=devices, lock_folder='.', timeout_s=timeout, retry_interval=0.1):
