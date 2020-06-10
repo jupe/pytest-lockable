@@ -25,10 +25,11 @@ jobs:
       with:
         # directory of test scripts
         test_dir: tests
-
     - name: Python Pytest Github Action
       uses: fylein/python-pytest-github-action@v2
       if: "${{ always() }}"
+      with:
+        args: python3 install -e . && pytest examples
   
     - name: Coveralls Python
       uses: AndreMiras/coveralls-python-action@v20200413
