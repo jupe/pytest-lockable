@@ -5,6 +5,8 @@ import unittest
 import os
 import socket
 import time
+import pytest
+from os.path import join
 from nose.tools import nottest
 import multiprocessing as mp
 from tempfile import mktemp
@@ -121,3 +123,15 @@ class TestPlugin(unittest.TestCase):
 
         expected = list(range(parallel_count))
         self.assertEqual(results, expected)
+
+    def test_e2e(self):
+        here = os.path.abspath(os.path.dirname(__file__))
+        example_root = join(here, "../example")
+        exit_code = pytest.main([
+            "-x",  # exit instantly on first error or failed test.
+            "--rootdir", example_root,
+            "--allocation_resource_list_file", join(example_root, "resources.json"),
+            "--allocation_lock_folder", example_root,
+            "--allocation_hostname", "localhost",
+            join(example_root, "test_example.py")])
+        self.assertEqual(exit_code, 0)
