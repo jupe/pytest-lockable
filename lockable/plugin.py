@@ -92,7 +92,7 @@ def _lock_some(candidates, timeout_s, lock_folder, retry_interval):
                 sleep(retry_interval)
 
         resource, release = func_timeout(timeout_s, doit, args=(candidates,))
-        print(f'resource {resource["id"]} allocated')
+        print(f'resource {resource["id"]} allocated ({json.dumps(resource)})')
         yield resource
         release()
     except FunctionTimedOut:
@@ -114,9 +114,17 @@ def _get_requirements(requirements, hostname):
     return merge(dict(hostname=hostname, online=True), requirements)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def lockable_resource(pytestconfig, record_testsuite_property):
-    """ pytest fixture that lock suitable resource and yield it """
+    """
+    pytest fixture that lock suitable resource and yield it
+
+    .. code-block:: python
+
+        def test_foo(lockable_resource):
+            print(f'Testing with resource: {lockable_resource}')
+
+    """
     requirements = parse_requirements(pytestconfig.getoption('allocation_requirements'))
     predicate = _get_requirements(requirements, pytestconfig.getoption('allocation_hostname'))
     resource_list = read_resources_list(pytestconfig.getoption('allocation_resource_list_file'))
