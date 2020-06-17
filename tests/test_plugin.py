@@ -146,6 +146,6 @@ class TestPlugin(unittest.TestCase):
             validate_json(data)
 
     def test_missing_id_in_json(self):
-        data = [{"a": "1234"}, {"id": "12345"}, {"id": "12345"}]
+        data = [{"a": "1234"}, {"id": "12345"}, {"id": "123456"}]
         with self.assertRaises(AssertionError):
             validate_json(data)

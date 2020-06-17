@@ -36,7 +36,7 @@ def read_resources_list(filename):
 
 def validate_json(data):
     counts = count_by(data, lambda obj: obj.get('id'))
-    no_ids = filter_(counts.keys(), lambda key: isinstance(counts[key], str))
+    no_ids = filter_(counts.keys(), lambda key: key is None)
     if no_ids:
         raise AssertionError('Invalid json, id property is missing')
 
