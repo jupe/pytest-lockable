@@ -11,7 +11,7 @@ from nose.tools import nottest
 import multiprocessing as mp
 from tempfile import mktemp
 from contextlib import contextmanager
-from lockable.plugin import read_resources_list, parse_requirements, lock
+from lockable.plugin import read_resources_list, parse_requirements, lock, validate_json
 
 
 HOSTNAME = socket.gethostname()
@@ -135,3 +135,17 @@ class TestPlugin(unittest.TestCase):
             "--allocation_hostname", "localhost",
             join(example_root, "test_example.py")])
         self.assertEqual(exit_code, 0)
+
+    def test_valid_json(self):
+        data = [{"id": "12345"}]
+        validate_json(data)
+
+    def test_duplicate_id_in_json(self):
+        data = [{"id": "1234"}, {"id": "12345"}, {"id": "12345"}]
+        with self.assertRaises(AssertionError):
+            validate_json(data)
+
+    def test_missing_id_in_json(self):
+        data = [{"a": "1234"}, {"id": "12345"}, {"id": "12345"}]
+        with self.assertRaises(AssertionError):
+            validate_json(data)

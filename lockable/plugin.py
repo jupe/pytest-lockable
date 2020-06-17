@@ -8,7 +8,7 @@ from time import sleep
 from contextlib import contextmanager
 import tempfile
 import pytest
-from pydash import filter_, merge
+from pydash import filter_, merge, count_by
 from func_timeout import func_timeout, FunctionTimedOut
 from filelock import Timeout, FileLock
 
@@ -30,7 +30,20 @@ def read_resources_list(filename):
     with open(filename) as json_file:
         data = json.load(json_file)
         assert isinstance(data, list), 'data is not an list'
+        validate_json(data)
     return data
+
+
+def validate_json(data):
+    counts = count_by(data, lambda obj: obj.get('id'))
+    no_ids = filter_(counts.keys(), lambda key: isinstance(counts[key], str))
+    if no_ids:
+        raise AssertionError('Invalid json, id property is missing')
+
+    duplicates = filter_(counts.keys(), lambda key: counts[key] > 1)
+    if duplicates:
+        print(duplicates)
+        raise AssertionError(f"Invalid json, duplicate ids in {duplicates}")
 
 
 def parse_requirements(requirements_str):
