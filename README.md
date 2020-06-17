@@ -48,16 +48,16 @@ Custom options:
 --allocation_requirements=<requirements>                 Resource requirements to be allocate
 --allocation_timeout=<timeout>, default=10               Allocation timeout in seconds
 --allocation_resource_list_file=<filename>, default=resources.json 
-                                                         Resource to be allocate
---allocation_lock_folder=<folder>, default= os tmp path  allocation lock folder
+                                                         Available resorces list
+--allocation_lock_folder=<folder>, default=<os-tmp-path> allocation lockfiles folder
 ```
 
 *`<requirements>`* can be json-string or key-value pairs. requirements have to match available resources to make allocation possible. Key-value pairs example: `key=value&key2=value2` 
 
 Example:
+
+See [example test](example/test_example.py). Usage:
 ```
 cd example
 pytest --allocation_hostname localhost -s --allocation_lock_folder .  .
 ```
-
-

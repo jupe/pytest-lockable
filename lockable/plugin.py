@@ -8,7 +8,7 @@ from time import sleep
 from contextlib import contextmanager
 import tempfile
 import pytest
-from pydash import filter_, merge
+from pydash import filter_, merge, count_by
 from func_timeout import func_timeout, FunctionTimedOut
 from filelock import Timeout, FileLock
 
@@ -21,8 +21,8 @@ def pytest_addoption(parser):
     parser.addoption("--allocation_hostname", default=socket.gethostname(), help="Allocation host")
     parser.addoption("--allocation_requirements", default=None, help="Resource requirements to be allocate")
     parser.addoption("--allocation_timeout", default=10, help="Allocation timeout")
-    parser.addoption("--allocation_resource_list_file", default='resources.json', help="Resource to be allocate")
-    parser.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="allocation lock folder")
+    parser.addoption("--allocation_resource_list_file", default='resources.json', help="Available resorces list")
+    parser.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="Allocation lockfiles folder")
 
 
 def read_resources_list(filename):
@@ -30,7 +30,20 @@ def read_resources_list(filename):
     with open(filename) as json_file:
         data = json.load(json_file)
         assert isinstance(data, list), 'data is not an list'
+        validate_json(data)
     return data
+
+
+def validate_json(data):
+    counts = count_by(data, lambda obj: obj.get('id'))
+    no_ids = filter_(counts.keys(), lambda key: key is None)
+    if no_ids:
+        raise AssertionError('Invalid json, id property is missing')
+
+    duplicates = filter_(counts.keys(), lambda key: counts[key] > 1)
+    if duplicates:
+        print(duplicates)
+        raise AssertionError(f"Invalid json, duplicate ids in {duplicates}")
 
 
 def parse_requirements(requirements_str):
@@ -70,7 +83,6 @@ def _try_lock(candidate, lock_folder):
                 os.remove(lock_file)
             except OSError as error:
                 print(error, file=sys.stderr)
-
         return candidate, release
     except Timeout:
         raise AssertionError('not success')
@@ -135,5 +147,5 @@ def lockable_resource(pytestconfig, record_testsuite_property):
     print(f"Resource list: {json.dumps(resource_list)}")
     with lock(predicate, resource_list, timeout_s, lock_folder) as resource:
         for key, value in resource.items():
-            record_testsuite_property(key, value)
+            record_testsuite_property(f'resource_{key}', value)
         yield resource
