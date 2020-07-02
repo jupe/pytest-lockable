@@ -13,6 +13,10 @@ from func_timeout import func_timeout, FunctionTimedOut
 from filelock import Timeout, FileLock
 
 
+class ResourceNotFound(Exception):
+    """ Exception raised when resource not found """
+
+
 def pytest_addoption(parser):
     """
     register argparse-style options and ini-style config values,
@@ -63,6 +67,10 @@ def parse_requirements(requirements_str):
             except ValueError:
                 continue
             key, value = part.split('=')
+            if value.lower() == "true":
+                value = True
+            elif value.lower() == "false":
+                value = False
             requirements[key] = value
         return requirements
 
@@ -116,6 +124,8 @@ def lock(requirements: dict, resource_list: list, timeout_s: int, lock_folder: s
     """ Lock resource context """
     local_resources = filter_(resource_list, requirements)
     random.shuffle(local_resources)
+    if not local_resources:
+        raise ResourceNotFound("Suitable resource not available")
     with _lock_some(local_resources, timeout_s, lock_folder, retry_interval) as resource:
         yield resource
 
