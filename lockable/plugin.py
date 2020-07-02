@@ -15,7 +15,6 @@ from filelock import Timeout, FileLock
 
 class ResourceNotFound(Exception):
     """ Exception raised when resource not found """
-    pass
 
 
 def pytest_addoption(parser):
