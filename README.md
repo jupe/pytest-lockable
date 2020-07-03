@@ -9,7 +9,7 @@ pytest plugin for lockable resources.
 Replacement for Jenkins lockable -plugin.
 Locking is implemented using `<resource.id>.lock` files.
 
-Resources are described in json file as array of objects. Each object has some mandatory fields but can contains any other as well. Required fields are: `id`, `online`, `hostname`-
+Resources are described in json file as array of objects. Each object has some mandatory fields but can contains any other as well. Required fields are: `id`, `online`, `hostname`.
 
 ## Example `resources.json`
 
@@ -18,7 +18,8 @@ Resources are described in json file as array of objects. Each object has some m
   {
     "id": "1234",
     "online": true,
-    "hostname": "localhost"
+    "hostname": "localhost",
+    "os": "Android"
   }
 ]
 ```
@@ -59,5 +60,5 @@ Example:
 See [example test](example/test_example.py). Usage:
 ```
 cd example
-pytest --allocation_hostname localhost -s --allocation_lock_folder .  .
+pytest --allocation_hostname localhost -s --allocation_lock_folder . --allocation_requirements os=Android .
 ```
