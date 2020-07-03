@@ -26,6 +26,12 @@ Resources are described in json file as array of objects. Each object has some m
 
 `id` should be unique for each resources. `online` describes if resource are available for allocator. Set this `false`  if you don't want to allocate resource. `hostname` is used to select suitable resource by running host. 
 
+Usage:
+```
+pytest --allocation_hostname localhost -s --allocation_requirements os=Android my_test
+```
+
+
 ## installation
 
 **Requires:** python 3.7<
@@ -60,5 +66,5 @@ Example:
 See [example test](example/test_example.py). Usage:
 ```
 cd example
-pytest --allocation_hostname localhost -s --allocation_lock_folder . --allocation_requirements os=Android .
+pytest --allocation_hostname localhost -s --allocation_lock_folder . .
 ```
