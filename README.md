@@ -39,6 +39,15 @@ pip install pytest-lockable
 pytest_plugins = ("lockable.plugin",)
 ```
 
+## integrations
+
+pytest-lockable integrates pytest-metadata - when resource is 
+reserved and [pytest-metadata](https://github.com/pytest-dev/pytest-metadata) plugin are in use metadata will 
+be generated from resource json with  `resource_` -prefixes.
+e.g. `resource_id=<id>`. 
+Same dictionary are also recorded to testsuite property using
+[record_testsuite_property](https://docs.pytest.org/en/stable/reference.html#record-testsuite-property) -method.
+
 ## Usage
 
 Custom options:
