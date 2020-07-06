@@ -149,5 +149,6 @@ def lockable_resource(pytestconfig, record_testsuite_property):
         for key, value in resource.items():
             record_testsuite_property(f'resource_{key}', value)
             if pytestconfig.pluginmanager.hasplugin('metadata'):
+                # pylint: disable=protected-access
                 pytestconfig._metadata[f'resource_{key}'] = value
         yield resource
