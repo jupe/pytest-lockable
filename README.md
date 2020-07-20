@@ -72,6 +72,21 @@ Custom options:
 
 Example:
 
+Use shared lockable resource
+``` python
+def test_example(lockable_resource):
+    """ Simple test """
+    print(f'Testing with resource: {lockable_resource}')
+```
+
+Allocate lockable resource during test with given requirements
+``` python
+def test_example(lockable):
+    """ Simple test """
+    with lockable({"my": "requirements"}) as resource:
+        print(f'Testing with resource#: {resource}')
+```
+
 See [example test](example/test_example.py). Usage:
 ```
 cd example
