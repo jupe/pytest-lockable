@@ -172,7 +172,7 @@ def lockable(pytestconfig, record_testsuite_property):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def lockable_resource(pytestconfig, lockable):
+def lockable_resource(pytestconfig, lockable):  # pylint: disable=redefined-outer-name
     """
     pytest fixture that lock suitable resource and yield it
 
