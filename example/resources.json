@@ -8,5 +8,10 @@
     "id": "1235",
     "online": true,
     "hostname": "localhost"
+  },
+  {
+    "id": "1236",
+    "online": true,
+    "hostname": "localhost"
   }
 ]
