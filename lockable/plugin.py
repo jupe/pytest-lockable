@@ -81,13 +81,14 @@ def _try_lock(candidate, lock_folder):
     resource_id = candidate.get("id")
     try:
         lock_file = os.path.join(lock_folder, f"{resource_id}.lock")
-        lockable = FileLock(lock_file)
-        lockable.acquire(timeout=0)
+        _lockable = FileLock(lock_file)
+        _lockable.acquire(timeout=0)
         print(f'Allocated resource: {resource_id}')
 
         def release():
+            nonlocal _lockable
             print(f'Release resource: {resource_id}')
-            lockable.release()
+            _lockable.release()
             try:
                 os.remove(lock_file)
             except OSError as error:
