@@ -12,11 +12,12 @@ def pytest_addoption(parser):
     register argparse-style options and ini-style config values,
     called once at the beginning of a test run
     """
-    parser.addoption("--allocation_hostname", default=socket.gethostname(), help="Allocation host")
-    parser.addoption("--allocation_requirements", default=None, help="Resource requirements to be allocate")
-    parser.addoption("--allocation_timeout", default=10, help="Allocation timeout")
-    parser.addoption("--allocation_resource_list_file", default='resources.json', help="Available resorces list")
-    parser.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="Allocation lockfiles folder")
+    group = parser.getgroup("lockable")
+    group.addoption("--allocation_hostname", default=socket.gethostname(), help="Allocation host")
+    group.addoption("--allocation_requirements", default=None, help="Resource requirements to be allocate")
+    group.addoption("--allocation_timeout", default=10, help="Allocation timeout")
+    group.addoption("--allocation_resource_list_file", default='resources.json', help="Available resorces list")
+    group.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="Allocation lockfiles folder")
 
 
 @pytest.fixture(scope="session", autouse=True)
