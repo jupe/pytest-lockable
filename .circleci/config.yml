@@ -65,13 +65,13 @@ jobs:
           command: |
             mkdir junit || true
             . venv/bin/activate;
-            nosetests --with-xunit --with-coverage --cover-package=lockable --cover-html --cover-html-dir=htmlcov --cover-xml-file=coverage.xml --xunit-file=junit/results.xml
+            nosetests --with-xunit --with-coverage --cover-package=pytest_lockable --cover-html --cover-html-dir=htmlcov --cover-xml-file=coverage.xml --xunit-file=junit/results.xml
             coveralls || true
       - run:
           name: pylint
           command: |
             . venv/bin/activate;
-            pylint lockable
+            pylint pytest_lockable
       - run:
           name: run
           command: |
