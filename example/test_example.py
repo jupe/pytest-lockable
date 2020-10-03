@@ -17,6 +17,6 @@ def test_example1(lockable_resource):
 def test_example2(lockable_resource, lockable):
     """ Simple test """
     print(f'Testing with resource: {lockable_resource}')
-    with lockable({}) as resource:
+    with lockable.auto_lock({}) as resource:
         print(f'Testing with resource#2: {resource}')
         sleep(1)
