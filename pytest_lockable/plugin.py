@@ -19,12 +19,12 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def lockable(pytestconfig, record_testsuite_property):
+def lockable(pytestconfig):
     """
     pytest fixture that yields function for allocate any resource
     .. code-block:: python
-            def test_foo(lockable_allocate):
-                with lockable({my: "resource}) as resource:
+            def test_foo(lockable):
+                with lockable.auto_lock({my: "resource}) as resource:
                     print(resource)
     """
 
@@ -32,8 +32,8 @@ def lockable(pytestconfig, record_testsuite_property):
     lock_folder = pytestconfig.getoption('allocation_lock_folder')
     hostname = pytestconfig.getoption('allocation_hostname')
 
-    lockable = Lockable(hostname=hostname, resource_list_file=resource_list_file, lock_folder=lock_folder)
-    yield lockable
+    _lockable = Lockable(hostname=hostname, resource_list_file=resource_list_file, lock_folder=lock_folder)
+    yield _lockable
 
 
 @pytest.fixture(scope="session", autouse=True)
