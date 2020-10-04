@@ -83,7 +83,7 @@ Allocate lockable resource during test with given requirements
 ``` python
 def test_example(lockable):
     """ Simple test """
-    with lockable({"my": "requirements"}) as resource:
+    with lockable.auto_lock({"my": "requirements"}) as resource:
         print(f'Testing with resource#: {resource}')
 ```
 
