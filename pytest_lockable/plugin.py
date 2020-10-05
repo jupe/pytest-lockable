@@ -1,10 +1,8 @@
 """ Lockable plugin for pytest """
-import json
 import socket
 import tempfile
-from contextlib import contextmanager
 import pytest
-from lockable import parse_requirements, get_requirements, read_resources_list, lock
+from lockable import Lockable
 
 
 def pytest_addoption(parser):
@@ -21,35 +19,21 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def lockable(pytestconfig, record_testsuite_property):
+def lockable(pytestconfig):
     """
     pytest fixture that yields function for allocate any resource
     .. code-block:: python
-            def test_foo(lockable_allocate):
-                with lockable({my: "resource}) as resource:
+            def test_foo(lockable):
+                with lockable.auto_lock({my: "resource}) as resource:
                     print(resource)
     """
-    resource_list = read_resources_list(pytestconfig.getoption('allocation_resource_list_file'))
-    timeout_s = pytestconfig.getoption('allocation_timeout')
+
+    resource_list_file = pytestconfig.getoption('allocation_resource_list_file')
     lock_folder = pytestconfig.getoption('allocation_lock_folder')
+    hostname = pytestconfig.getoption('allocation_hostname')
 
-    @contextmanager
-    def _lock(requirements, prefix='resource'):
-        nonlocal resource_list, timeout_s, lock_folder
-        requirements = parse_requirements(requirements)
-        predicate = get_requirements(requirements, pytestconfig.getoption('allocation_hostname'))
-        print(f"Use lock folder: {lock_folder}")
-        print(f"Requirements: {json.dumps(predicate)}")
-        print(f"Resource list: {json.dumps(resource_list)}")
-        with lock(predicate, resource_list, timeout_s, lock_folder) as resource:
-            for key, value in resource.items():
-                record_testsuite_property(f'resource_{key}', value)
-                if pytestconfig.pluginmanager.hasplugin('metadata'):
-                    # pylint: disable=protected-access
-                    pytestconfig._metadata[f'{prefix}_{key}'] = value
-            yield resource
-
-    yield _lock
+    _lockable = Lockable(hostname=hostname, resource_list_file=resource_list_file, lock_folder=lock_folder)
+    yield _lockable
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -61,5 +45,6 @@ def lockable_resource(pytestconfig, lockable):  # pylint: disable=redefined-oute
             print(f'Testing with resource: {lockable_resource}')
     """
     requirements = pytestconfig.getoption('allocation_requirements')
-    with lockable(requirements) as resource:
+    timeout_s = pytestconfig.getoption('allocation_timeout')
+    with lockable.auto_lock(requirements, timeout_s) as resource:
         yield resource

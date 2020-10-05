@@ -7,7 +7,9 @@
 pytest plugin for lockable resources.
 
 Replacement for Jenkins lockable -plugin.
-Locking is implemented using `<resource.id>.lock` files.
+Locking is implemented using `<resource-id>.pid` files and is released automatically.
+
+Resources are automatically released when pytest ends.
 
 Resources are described in json file as array of objects. Each object has some mandatory fields but can contains any other as well. Required fields are: `id`, `online`, `hostname`.
 
@@ -83,7 +85,7 @@ Allocate lockable resource during test with given requirements
 ``` python
 def test_example(lockable):
     """ Simple test """
-    with lockable({"my": "requirements"}) as resource:
+    with lockable.auto_lock({"my": "requirements"}) as resource:
         print(f'Testing with resource#: {resource}')
 ```
 

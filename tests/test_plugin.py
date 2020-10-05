@@ -13,6 +13,7 @@ class TestPlugin(unittest.TestCase):
         example_root = join(here, "../example")
         exit_code = pytest.main([
             "-x",  # exit instantly on first error or failed test.
+            "-vvv", "-s",
             "--rootdir", example_root,
             "--allocation_resource_list_file", join(example_root, "resources.json"),
             "--allocation_lock_folder", example_root,
