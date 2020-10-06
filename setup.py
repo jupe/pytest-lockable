@@ -55,7 +55,7 @@ setup(
     python_requires='>=3.7, <4',
     install_requires=[
         'pytest',
-        'lockable==0.2.0',
+        'lockable==0.3.0',
         'func_timeout',
         'filelock',
         'pydash'
