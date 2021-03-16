@@ -57,7 +57,6 @@ setup(
         'pytest',
         'lockable==0.3.0',
         'func_timeout',
-        'filelock',
         'pydash'
     ],
     extras_require={  # Optional
