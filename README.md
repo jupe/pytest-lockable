@@ -1,7 +1,7 @@
 # pytest-lockable
 
 [![CircleCI](https://circleci.com/gh/jupe/pytest-lockable/tree/master.svg?style=svg)](https://circleci.com/gh/jupe/pytest-lockable/tree/master)
-[![PyPI version](https://badge.fury.io/py/pytest-lockable.svg)](https://badge.fury.io/py/pytest-lockable)
+[![PyPI version](https://badge.fury.io/py/pytest-lockable.svg)](https://pypi.org/project/pytest-lockable/)
 [![Coverage Status](https://coveralls.io/repos/github/jupe/pytest-lockable/badge.svg)](https://coveralls.io/github/jupe/pytest-lockable)
 
 pytest plugin for lockable resources.
