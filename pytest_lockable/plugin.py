@@ -24,8 +24,8 @@ def lockable(pytestconfig):
     pytest fixture that yields function for allocate any resource
     .. code-block:: python
             def test_foo(lockable):
-                with lockable.auto_lock({my: "resource}) as resource:
-                    print(resource)
+                with lockable.auto_lock({my: "resource}) as allocation:
+                    print(allocation.resource_info)
     """
 
     resource_list_file = pytestconfig.getoption('allocation_resource_list_file')
@@ -46,5 +46,5 @@ def lockable_resource(pytestconfig, lockable):  # pylint: disable=redefined-oute
     """
     requirements = pytestconfig.getoption('allocation_requirements')
     timeout_s = pytestconfig.getoption('allocation_timeout')
-    with lockable.auto_lock(requirements, timeout_s) as resource:
-        yield resource
+    with lockable.auto_lock(requirements, timeout_s) as allocation:
+        yield allocation.resource_info
