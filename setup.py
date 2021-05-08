@@ -35,8 +35,6 @@ setup(
     classifiers=[  # Optional
         'Development Status :: 5 - Production/Stable',
         "Framework :: Pytest",
-        "Intended Audience :: Developers",
-        # Indicate who your project is intended for
         'Intended Audience :: Developers',
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
@@ -49,9 +47,8 @@ setup(
         'Programming Language :: Python :: 3.7',
         "Programming Language :: Python :: 3 :: Only",
     ],
-    packages=find_packages(exclude=['tests']),  # Required
+    packages=find_packages(exclude=['tests']),
     keywords="py.test pytest lockable resource",
-    # Specify which Python versions you support.
     python_requires='>=3.7, <4',
     install_requires=[
         'pytest',
