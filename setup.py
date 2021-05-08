@@ -33,7 +33,7 @@ setup(
     # Classifiers help users find your project by categorizing it.
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         "Framework :: Pytest",
         "Intended Audience :: Developers",
         # Indicate who your project is intended for
