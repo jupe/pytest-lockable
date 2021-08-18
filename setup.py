@@ -52,7 +52,7 @@ setup(
     python_requires='>=3.7, <4',
     install_requires=[
         'pytest',
-        'lockable @ git+https://github.com/jupe/py-lockable.git@c5b5d3414edde156abe998f5b411f5da5695430f'
+        'lockable @ git+https://github.com/jupe/py-lockable.git@http_retry'
     ],
     extras_require={  # Optional
         'dev': ['nose', 'coveralls', 'pylint', 'coverage'],
