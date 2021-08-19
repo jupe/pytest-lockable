@@ -14,7 +14,7 @@ def pytest_addoption(parser):
     group.addoption("--allocation_hostname", default=socket.gethostname(), help="Allocation host")
     group.addoption("--allocation_requirements", default=None, help="Resource requirements to be allocate")
     group.addoption("--allocation_timeout", default=10, help="Allocation timeout")
-    group.addoption("--allocation_resource_list_file", default='resources.json', help="Available resorces list")
+    group.addoption("--allocation_resource_list_file", default='resources.json', help="Available resources list")
     group.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="Allocation lockfiles folder")
 
 
