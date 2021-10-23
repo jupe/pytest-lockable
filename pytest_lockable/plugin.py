@@ -42,9 +42,9 @@ def lockable_resource(pytestconfig, lockable):  # pylint: disable=redefined-oute
     pytest fixture that lock suitable resource and yield it
     .. code-block:: python
         def test_foo(lockable_resource):
-            print(f'Testing with resource: {lockable_resource}')
+            print(f'Testing with resource: {lockable_resource.resource_info}')
     """
     requirements = pytestconfig.getoption('allocation_requirements')
     timeout_s = pytestconfig.getoption('allocation_timeout')
     with lockable.auto_lock(requirements, timeout_s) as allocation:
-        yield allocation.resource_info
+        yield allocation
