@@ -18,7 +18,7 @@ def pytest_addoption(parser):
     group.addoption("--allocation_lock_folder", default=tempfile.gettempdir(), help="Allocation lockfiles folder")
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def lockable(pytestconfig):
     """
     pytest fixture that yields function for allocate any resource
@@ -36,7 +36,7 @@ def lockable(pytestconfig):
     yield _lockable
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def lockable_resource(pytestconfig, lockable):  # pylint: disable=redefined-outer-name
     """
     pytest fixture that lock suitable resource and yield it
