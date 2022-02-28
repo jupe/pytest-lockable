@@ -49,6 +49,7 @@ setup(
     ],
     packages=find_packages(exclude=['tests']),
     keywords="py.test pytest lockable resource",
+    entry_points={"pytest11": ["pytest_lockable = pytest_lockable.plugin"]},
     python_requires='>=3.7, <4',
     install_requires=[
         'pytest',
