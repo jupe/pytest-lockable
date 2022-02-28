@@ -42,11 +42,6 @@ pytest --allocation_hostname localhost -s --allocation_requirements os=Android m
 pip install pytest-lockable
 ```
 
-`conftest.py`:
-
-```
-pytest_plugins = ("lockable.plugin",)
-```
 
 ## integrations
 
