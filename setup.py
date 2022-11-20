@@ -56,7 +56,7 @@ setup(
         'lockable>=0.8.0,<0.9.0'
     ],
     extras_require={  # Optional
-        'dev': ['nose', 'coveralls', 'pylint', 'coverage', 'unittest-xml-reportin'],
+        'dev': ['nose', 'coveralls', 'pylint', 'coverage'],
         'optional': ['pytest-metadata']
     },
 
