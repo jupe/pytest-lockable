@@ -39,6 +39,11 @@ jobs:
     - name: Build coverage file
       run: |
           pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=pytest_lockable test/ | tee pytest-coverage.txt
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: run example
       working-directory: example
       run: |
