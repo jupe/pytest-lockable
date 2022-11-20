@@ -38,8 +38,8 @@ jobs:
       run: pylint pytest_lockable
     - name: Build coverage file
       run: |
-          pytest --junitxml=results.xml --cov-report term-missing:skip-covered --cov-report xml:coverage.xml --cov=pytest_lockable test/
-          ls -l
+          python3 -m coverage run --source pytest_lockable -m xmlrunner discover -s tests --output-file results.xml
+          python3 -m coverage xml -o coverage.xml
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
