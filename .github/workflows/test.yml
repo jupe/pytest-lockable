@@ -38,8 +38,8 @@ jobs:
       run: pylint pytest_lockable
     - name: Build coverage file
       run: |
-          nosetests --with-xunit --with-coverage --cover-package=pytest_lockable --cover-html --cover-html-dir=htmlcov --cover-xml-file=coverage.xml --xunit-file=results.xml
-          coveralls || true
+          python3 -m coverage run --source pytest_lockable -m xmlrunner discover -s tests --output-file results.xml
+          python3 -m coverage xml -o coverage.xml
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
