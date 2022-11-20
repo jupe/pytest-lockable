@@ -42,6 +42,7 @@ jobs:
           python3 -m coverage xml -o coverage.xml
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
+      if: ${{ matrix.python-version == '3.10' && matrix.os == 'ubuntu-latest' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
