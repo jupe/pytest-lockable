@@ -22,6 +22,7 @@ workflows:
               only: /.*/
       - deploy:
           requires:
+            - test-310
             - test-39
             - test-38
             - test-37
@@ -95,7 +96,12 @@ jobs:
   test-39:
     <<: *test-template
     docker:
-    - image: circleci/python:3.9-rc-buster
+    - image: circleci/python:3.9
+  
+  test-310:
+    <<: *test-template
+    docker:
+    - image: circleci/python:3.10
 
   deploy:
     <<: *test-template
