@@ -42,18 +42,18 @@ setup(
         "Topic :: Software Development :: Quality Assurance",
         "Topic :: Software Development :: Testing",
         "Topic :: Utilities",
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.7',
         "Programming Language :: Python :: 3 :: Only",
     ],
     packages=find_packages(exclude=['tests']),
     keywords="py.test pytest lockable resource",
     entry_points={"pytest11": ["pytest_lockable = pytest_lockable.plugin"]},
-    python_requires='>=3.7, <4',
+    python_requires='>=3.8, <4',
     install_requires=[
         'pytest',
-        'lockable>=0.9.0,<0.11.0'
+        'lockable>=0.11.0,<0.12.0'
     ],
     extras_require={  # Optional
         'dev': ['pynose', 'coveralls', 'pylint', 'coverage'],
