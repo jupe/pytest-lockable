@@ -107,20 +107,20 @@ jobs:
     docker:
     - image: circleci/python:3.12
 
-deploy:
-  <<: *test-template
-  steps:
-    - setup
-    - run:
-        name: create packages
-        command: |
-          . venv/bin/activate;
-          python setup.py sdist
-          python setup.py bdist_wheel
-    - run:
-        name: upload to pypi
-        command: |
-          . venv/bin/activate;
-          pip install twine;
-          export PATH=$HOME/.local/bin:$PATH;
-          twine upload dist/*
+  deploy:
+    <<: *test-template
+    steps:
+      - setup
+      - run:
+          name: create packages
+          command: |
+            . venv/bin/activate;
+            python setup.py sdist
+            python setup.py bdist_wheel
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate;
+            pip install twine;
+            export PATH=$HOME/.local/bin:$PATH;
+            twine upload dist/*
