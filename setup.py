@@ -54,7 +54,7 @@ setup(
     python_requires='>=3.9, <4',
     install_requires=[
         'pytest',
-        'lockable>=0.11.0,<0.12.0'
+        'lockable>=0.11.0,<0.14.0'
     ],
     extras_require={  # Optional
         'dev': ['pynose', 'coveralls', 'pylint', 'coverage'],
