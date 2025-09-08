@@ -8,10 +8,6 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-38:
-          filters:
-            tags:
-              only: /.*/
       - test-39:
           filters:
             tags:
@@ -20,11 +16,20 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - test-311:
+          filters:
+            tags:
+              only: /.*/
+      - test-312:
+          filters:
+            tags:
+              only: /.*/
       - deploy:
           requires:
+            - test-312
+            - test-311
             - test-310
             - test-39
-            - test-38
           filters:
             tags:
               only: /^v.*/
@@ -53,9 +58,9 @@ commands:
           key: deps1-{{ .Branch }}-{{ checksum "setup.py" }}
 
 jobs:
-  test-38: &test-template
+  test-39: &test-template
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.9
     working_directory: ~/pytest-lockable
     steps:
       - setup
@@ -87,30 +92,35 @@ jobs:
           path: junit
           destination: juni
 
-  test-39:
-    <<: *test-template
-    docker:
-    - image: circleci/python:3.9
-  
   test-310:
     <<: *test-template
     docker:
     - image: circleci/python:3.10
 
-  deploy:
+  test-311:
     <<: *test-template
-    steps:
-      - setup
-      - run:
-          name: create packages
-          command: |
-            . venv/bin/activate;
-            python setup.py sdist
-            python setup.py bdist_wheel
-      - run:
-          name: upload to pypi
-          command: |
-            . venv/bin/activate;
-            pip install twine;
-            export PATH=$HOME/.local/bin:$PATH;
-            twine upload dist/*
+    docker:
+    - image: circleci/python:3.11
+
+  test-312:
+    <<: *test-template
+    docker:
+    - image: circleci/python:3.12
+
+deploy:
+  <<: *test-template
+  steps:
+    - setup
+    - run:
+        name: create packages
+        command: |
+          . venv/bin/activate;
+          python setup.py sdist
+          python setup.py bdist_wheel
+    - run:
+        name: upload to pypi
+        command: |
+          . venv/bin/activate;
+          pip install twine;
+          export PATH=$HOME/.local/bin:$PATH;
+          twine upload dist/*
