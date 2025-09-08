@@ -3,6 +3,7 @@ name: Tests
 on:
   push:
     branches: [ master ]
+    tags: [ 'v*' ]
   pull_request:
 
 jobs:
@@ -20,3 +21,23 @@ jobs:
         run: pip install -e .[dev]
       - name: Run tests
         run: pytest tests
+
+  deploy:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Build package
+        run: |
+          pip install -U pip setuptools wheel twine
+          python setup.py sdist
+          python setup.py bdist_wheel
+      - name: Upload to PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: twine upload dist/*
