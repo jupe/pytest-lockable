@@ -1,6 +1,6 @@
 # pytest-lockable
 
-[![CircleCI](https://circleci.com/gh/jupe/pytest-lockable/tree/master.svg?style=svg)](https://circleci.com/gh/jupe/pytest-lockable/tree/master)
+[![Tests](https://github.com/jupe/pytest-lockable/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/jupe/pytest-lockable/actions/workflows/tests.yml)
 [![PyPI version](https://badge.fury.io/py/pytest-lockable.svg)](https://pypi.org/project/pytest-lockable/)
 [![Coverage Status](https://coveralls.io/repos/github/jupe/pytest-lockable/badge.svg)](https://coveralls.io/github/jupe/pytest-lockable)
 
